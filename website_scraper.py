@@ -11,8 +11,25 @@ def scrape_website(url):
 
     # Extract relevant information from the website
     # You can customize this according to your requirements
-    # For example:
+
+    # Title and description
     title = soup.title.text
     description = soup.find('meta', attrs={'name': 'description'})['content']
 
-    return {'title': title, 'description': description}
+    # Additional content
+    # Extracting all links on the page
+    links = [link.get('href') for link in soup.find_all('a')]
+
+    # Extracting all paragraphs
+    paragraphs = [p.text for p in soup.find_all('p')]
+
+    # Extracting all image URLs
+    images = [img.get('src') for img in soup.find_all('img')]
+
+    return {
+        'title': title,
+        'description': description,
+        'links': links,
+        'paragraphs': paragraphs,
+        'images': images
+    }
